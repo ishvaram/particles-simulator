@@ -1,0 +1,100 @@
+<!doctype html>
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Particles Simulator</title>
+    <link rel="stylesheet" href="/static/styles.css" />
+  </head>
+  <body>
+    <!-- Header -->
+    <div class="header">
+      <h1>Particles Simulator</h1>
+      <div class="controls">
+        <div class="connection-status">
+          <div class="connection-dot" id="conn-dot"></div>
+          <span id="conn-text">Connected</span>
+        </div>
+        <button class="btn-secondary" onclick="post('/api/v1/control/pause')">Pause</button>
+        <button class="btn-primary" onclick="post('/api/v1/control/resume')">Resume</button>
+        <button class="btn-danger" onclick="post('/api/v1/control/reset')">Reset</button>
+      </div>
+    </div>
+
+    <!-- Main Dashboard Grid -->
+    <div class="dashboard">
+      <!-- Left: Simulation Canvas -->
+      <div class="panel panel-simulation">
+        <div class="panel-header">
+          <span class="panel-title">Simulation</span>
+          <div class="panel-stats">
+            <span class="mini-stat">Tick: <strong id="stat-tick">0</strong></span>
+            <span class="mini-stat">Time: <strong id="stat-time">0.0s</strong></span>
+            <span class="mini-stat">Particles: <strong id="stat-particles">0</strong></span>
+          </div>
+        </div>
+        <div class="canvas-wrapper">
+          <canvas id="canvas" width="640" height="384"></canvas>
+        </div>
+      </div>
+
+      <!-- Right Top: EventBus Metrics -->
+      <div class="panel panel-metrics">
+        <div class="panel-header">
+          <span class="panel-title">EventBus Metrics</span>
+          <div class="refresh-control">
+            <label for="refresh-interval">Refresh:</label>
+            <select id="refresh-interval" onchange="setRefreshInterval(this.value)">
+              <option value="1000" selected>1s</option>
+              <option value="2000">2s</option>
+              <option value="5000">5s</option>
+              <option value="10000">10s</option>
+              <option value="0">Off</option>
+            </select>
+          </div>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <span class="metric-value" id="stat-subs">0</span>
+            <span class="metric-label">Subscribers</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value" id="stat-published">0</span>
+            <span class="metric-label">Published</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value warning" id="stat-dropped">0</span>
+            <span class="metric-label">Dropped</span>
+          </div>
+          <div class="metric-card">
+            <span class="metric-value" id="stat-delivered">0</span>
+            <span class="metric-label">Delivered</span>
+          </div>
+        </div>
+        <!-- Connected Clients -->
+        <div class="clients-section">
+          <div class="section-header">Connected Clients</div>
+          <div class="clients-list" id="clients-list">
+            <div class="client-empty">Loading...</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bottom: Streaming Logs -->
+      <div class="panel panel-logs">
+        <div class="panel-header">
+          <span class="panel-title">Streaming Logs</span>
+          <div class="log-controls">
+            <input type="text" class="log-filter" id="log-filter" placeholder="Filter..." />
+            <button class="btn-small" id="log-pause-btn">pause</button>
+            <button class="btn-small" onclick="clearLogs()">Clear</button>
+            <span id="log-paused-indicator"></span>
+          </div>
+        </div>
+        <div class="log-container" id="log-container"></div>
+      </div>
+    </div>
+
+    <script src="/static/app.js"></script>
+  </body>
+</html>

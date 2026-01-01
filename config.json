@@ -1,0 +1,17 @@
+{
+    "simulation": {
+        "tick_interval": 0.5,
+        "world_width": 100,
+        "world_height": 60,
+        "particle_count": 8
+    },
+    "server": {
+        "host": "127.0.0.1",
+        "port": 8080
+    },
+    "logging": {
+        "level": "INFO",
+        "file": "logs/particles_simulator.log",
+        "crash_file": "logs/crash.log"
+    }
+}
