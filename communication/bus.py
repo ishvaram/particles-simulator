@@ -1,6 +1,6 @@
 import asyncio
 import time
-from core.observer import get_logger
+from internal.logging import get_logger
 
 class Subscriber:
     __slots__ = ("name", "queue", "topics", "created_at", "received", "dropped")

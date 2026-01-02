@@ -101,9 +101,23 @@ class AsyncFileLogger:
 
     async def _run(self):
         file = open(self.path, "a")
+        self._file_missing_logged = False
         try:
             while not self._stop.is_set():
                 try:
+                    # Check if log file was deleted
+                    if not os.path.exists(self.path):
+                        if not self._file_missing_logged:
+                            get_logger().warn("Log file deleted, logging disabled", path=self.path)
+                            self._file_missing_logged = True
+                        # Drain queue to prevent memory buildup
+                        try:
+                            await asyncio.wait_for(self.queue.get(), timeout=0.5)
+                            self.dropped += 1
+                        except asyncio.TimeoutError:
+                            pass
+                        continue
+                    
                     record = await asyncio.wait_for(self.queue.get(), timeout=0.5)
                     file.write(json.dumps(record, default=str) + "\n")
                     file.flush()

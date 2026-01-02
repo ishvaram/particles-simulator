@@ -123,14 +123,14 @@ Heartbeat includes `engine_state` so clients know if paused vs stopped vs stuck.
 
 ---
 
-## Observer Module
+## Logging Module
 
-All observability in one place: `core/observer.py`
+All Logging in one place: `internal/logging.py`
 
 - `StructuredLogger` - JSON to stderr
 - `AsyncFileLogger` - non-blocking file writes
 
-All methods wrapped in try/except so that observer failures never crash the simulation.
+All methods wrapped in try/except so that logging failures never crash the simulation.
 
 ---
 

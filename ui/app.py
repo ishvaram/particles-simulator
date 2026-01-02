@@ -12,14 +12,14 @@ from fastapi.staticfiles import StaticFiles
 
 from communication.bus import EventBus
 from config import load_config
-from core.health import (
+from internal.health import (
     get_health_checker,
     check_event_loop,
     create_bus_check,
     create_engine_check,
     create_logger_check,
 )
-from core.observer import get_logger, LogLevel, StructuredLogger, AsyncFileLogger
+from internal.logging import get_logger, LogLevel, StructuredLogger, AsyncFileLogger
 from utils.crash import create_async_handler
 from simulation.engine import SimulationEngine
 from simulation.state import StateSnapshot

@@ -2,7 +2,7 @@ import asyncio
 import random
 import time
 from config import load_config
-from core.observer import get_logger
+from internal.logging import get_logger
 from simulation.entities import Particle
 from simulation.state import StateSnapshot
 from simulation.world import World

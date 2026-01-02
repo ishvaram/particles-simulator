@@ -3,7 +3,7 @@
 from fastapi import APIRouter
 from fastapi.responses import JSONResponse
 
-from core.health import Status
+from internal.health import Status
 from utils.timestamp import format_timestamp
 
 router = APIRouter(prefix="/api/v1", tags=["health"])
