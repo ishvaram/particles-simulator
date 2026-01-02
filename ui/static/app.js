@@ -285,6 +285,18 @@ async function refreshStats() {
     document.getElementById('stat-published').textContent = s.bus.total_published.toLocaleString();
     document.getElementById('stat-dropped').textContent = s.bus.total_dropped.toLocaleString();
     document.getElementById('stat-delivered').textContent = s.bus.total_delivered.toLocaleString();
+
+   // Show bus drops + logger drops if any
+    const busDropped = s.bus.total_dropped || 0;
+    const loggerDropped = s.logger?.dropped || 0;
+    const droppedEl = document.getElementById('stat-dropped');
+    if (loggerDropped > 0) {
+      droppedEl.textContent = `${busDropped} (log: ${loggerDropped})`;
+      droppedEl.classList.add('warning');
+    } else {
+      droppedEl.textContent = busDropped.toLocaleString();
+      droppedEl.classList.remove('warning');
+    }
     
     // Fetch subscribers/clients
     const r2 = await fetch('/api/v1/subscribers', {
