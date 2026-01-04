@@ -34,7 +34,7 @@ class EventBus:
                                    set(topics) if topics else set())
             self._subscribers[name] = subscriber
             self._subscribers_snapshot = list(self._subscribers.values())
-            self._log.info(f"sub+ {name}")
+            self._log.info(f"new subscriber joined: {name}")
             return subscriber
 
     async def unsubscribe(self, name):
@@ -43,7 +43,7 @@ class EventBus:
                 return False
             del self._subscribers[name]
             self._subscribers_snapshot = list(self._subscribers.values())
-            self._log.info(f"sub- {name}")
+            self._log.info(f"subscriber left: {name}")
             return True
 
     async def publish(self, item, topic=""):
