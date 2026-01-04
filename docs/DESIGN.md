@@ -146,6 +146,16 @@ SSE reconnects with exponential retry backoff mechanism. the heartbeat endpoint 
 
 ---
 
+## Server-Sent Events (SSE)
+
+- This application uses Server-Sent Events (SSE) to deliver real-time updates from the server to the client over a persistent HTTP connection.
+
+- SSE enables the server to push data instantly as events occur, eliminating the need for frequent client polling and reducing network overhead.
+
+- It provides reliable, low-latency, one way communication (server -> client) with built-in reconnection support, making it well suited for live dashboards, monitoring, and streaming status or metrics updates.
+
+---
+
 ## Memory vs Disk
 
 State lives in memory only. Events logged to disk  in async manner.
